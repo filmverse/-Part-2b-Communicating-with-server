@@ -40,6 +40,16 @@ const App = () => {
 
   console.log(showAll)
 
+  const toggleImportanceOf = (id) => {
+    // console.log(`importance of ${id} needs to be toggled`)
+    const url = `http://localhost:3001/notes/${id}`
+    const note = notes.find(n => n.id === id)
+    const changedNote = {...note, important: !note.important}
+    axios.put(url, changedNote).then(response => {
+      setNotes(notes.map(note => note.id !== id ? note : response.data))
+    })
+  }
+
   return (
     <div>
     <h1>Notes</h1>
@@ -47,7 +57,11 @@ const App = () => {
         show {showAll ? 'important' : 'all'}
       </button>
       <ul>
-        {notesToShow.map(notemap => <Note key={notemap.id} note={notemap} />)}
+        {notesToShow.map(notemap => <Note
+          key={notemap.id}
+          note={notemap}
+          toggleImportance={() => toggleImportanceOf(notemap.id)}
+        />)}
       </ul>
       <form onSubmit={addNote}>
         <input value={newNote} onChange={handleNoteChange} />
