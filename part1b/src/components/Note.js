@@ -1,7 +1,9 @@
 
 const Note = ({ note }) => {
     return (
-        <div>{note.content}</div>
+        <div>
+            {note.content} <button>testing</button>
+        </div>
     )
 }
 
