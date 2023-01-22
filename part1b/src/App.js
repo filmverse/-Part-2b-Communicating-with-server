@@ -8,6 +8,7 @@ const App = () => {
   const [ notes, setNotes ] = useState([])
   const [ newNote, setNewNote ] = useState('')
   const [showAll, setShowAll] = useState(true)
+  const [errorMessage, setErrorMessage] = useState('some error happened...')
 
   const hook = () => {
     noteService.getAll().then(iNotes => {
@@ -49,11 +50,33 @@ const App = () => {
     noteService.update(id, changedNote).then(iNotes => {
       setNotes(notes.map(note => note.id !== id ? note : iNotes))
     })
+    .catch(error => {
+      setErrorMessage(
+        `Note ${note.content} was already removed from server`
+      )
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+      setNotes(notes.filter(n => n.id !== id))
+    })
+  }
+
+  const Notification = ({ message }) => {
+    if (message === null) {
+      return null
+    }
+
+    return (
+      <div className="error">
+        {message}
+      </div>
+    )
   }
 
   return (
     <div>
-    <h1>Notes</h1>
+      <h1>Notes</h1>
+      <Notification message={errorMessage} />
       <button onClick={() => setShowAll(!showAll)}>
         show {showAll ? 'important' : 'all'}
       </button>
