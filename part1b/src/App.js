@@ -38,6 +38,8 @@ const App = () => {
     ? notes
     : notes.filter(note => note.important === true)
 
+  console.log(showAll)
+
   return (
     <div>
     <h1>Notes</h1>
