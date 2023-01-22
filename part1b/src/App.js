@@ -67,7 +67,7 @@ const App = () => {
     }
 
     return (
-      <div className="error">
+      <div className='error'>
         {message}
       </div>
     )
