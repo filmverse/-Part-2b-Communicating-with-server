@@ -33,8 +33,14 @@
     {
       "content": "updated notes",
       "date": "2023-01-22T17:13:41.212Z",
-      "important": false,
+      "important": true,
       "id": 6
+    },
+    {
+      "content": "testing note creation",
+      "date": "2023-01-22T18:18:00.022Z",
+      "important": false,
+      "id": 7
     }
   ]
 }
