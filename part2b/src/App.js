@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Person from "./components/Person";
+import PersonForm from "./components/personForm";
 
 const App = () => {
 
@@ -38,11 +39,18 @@ const App = () => {
     <div>
       <h1>Phonebook</h1>
       <h2>add a new</h2>
-      <form onSubmit={addPerson}>
+      <PersonForm
+        name={personName}
+        number={personNumber}
+        changeName={handleChange(setPersonName)}
+        changeNumber={handleChange(setPersonNumber)}
+        addPerson={addPerson}
+      />
+      {/* <form onSubmit={addPerson}>
         name: <input value={personName} onChange={handleChange(setPersonName)} /><br />
         number: <input value={personNumber} onChange={handleChange(setPersonNumber)} /><br />
         <button type="submit">add</button>
-      </form>
+      </form> */}
       {persons.map(person => (
         <Person key={person.id} phoneBookPerson={person} />
       ))}
