@@ -17,16 +17,31 @@ const App = () => {
   }
   useEffect(hook, [])
 
+  const addPerson = (event) => {
+    event.preventDefault()
+    const newPerson = {
+      name: personName,
+      number: personNumber
+    }
+    axios.post('http://localhost:3001/persons', newPerson).then(
+      response => {
+        setPersons(persons.concat(response.data))
+        setPersonName("")
+        setPersonNumber("")
+      }
+    )
+  }
+
   const handleChange = (setValue) => (event) => setValue(event.target.value)
 
   return (
     <div>
       <h1>Phonebook</h1>
       <h2>add a new</h2>
-      <form>
+      <form onSubmit={addPerson}>
         name: <input value={personName} onChange={handleChange(setPersonName)} /><br />
         number: <input value={personNumber} onChange={handleChange(setPersonNumber)} /><br />
-        <button>add</button>
+        <button type="submit">add</button>
       </form>
       {persons.map(person => (
         <Person key={person.id} phoneBookPerson={person} />
