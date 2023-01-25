@@ -21,19 +21,9 @@
       "id": 4
     },
     {
-      "name": "Vikas",
-      "number": "987654321987",
-      "id": 5
-    },
-    {
       "name": "test_contact",
       "number": "098765432198",
       "id": 6
-    },
-    {
-      "name": "testing_again",
-      "number": "789456123032",
-      "id": 7
     },
     {
       "name": "testing again and again",
@@ -41,9 +31,14 @@
       "id": 8
     },
     {
-      "name": "new testing",
-      "number": "753145697",
+      "name": "vikas",
+      "number": "74123658965",
       "id": 9
+    },
+    {
+      "name": "resting",
+      "number": "7415263896321",
+      "id": 10
     }
   ]
 }

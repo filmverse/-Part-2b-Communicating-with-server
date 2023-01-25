@@ -48,6 +48,14 @@ const App = () => {
     }
   }
 
+  const removePerson = (id, name) => () => {
+    if (window.confirm(`Delete ${name}?`)) {
+      axios.delete(`http://localhost:3001/persons/${id}`).then(() => {
+        setPersons(persons.filter(person => person.name !== name))
+      })
+    }
+  }
+
   const handleChange = (setValue) => (event) => setValue(event.target.value)
 
   return (
@@ -69,6 +77,7 @@ const App = () => {
       <Person
         persons={persons}
         filterPerson={filterPerson}
+        removePerson={removePerson}
       />
 
       Debug name: {personName}<br />
