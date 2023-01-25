@@ -40,8 +40,11 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
+
       <PersonFilter filterName={filterPerson} changeFilterName={handleChange(setFilterPerson)} />
+
       <h2>add a new</h2>
+
       <PersonForm
         name={personName}
         number={personNumber}
@@ -49,18 +52,12 @@ const App = () => {
         changeNumber={handleChange(setPersonNumber)}
         addPerson={addPerson}
       />
-      {/* <form onSubmit={addPerson}>
-        name: <input value={personName} onChange={handleChange(setPersonName)} /><br />
-        number: <input value={personNumber} onChange={handleChange(setPersonNumber)} /><br />
-        <button type="submit">add</button>
-      </form> */}
+
       <Person
         persons={persons}
         filterPerson={filterPerson}
       />
-      {/* {persons.map(person => (
-        <Person key={person.id} phoneBookPerson={person} />
-      ))} */}
+
       Debug name: {personName}<br />
       Debug number: {personNumber}<br />
       Debug filter: {filterPerson}
