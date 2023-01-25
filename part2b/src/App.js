@@ -26,13 +26,26 @@ const App = () => {
       name: personName,
       number: personNumber
     }
-    axios.post('http://localhost:3001/persons', newPerson).then(
-      response => {
-        setPersons(persons.concat(response.data))
-        setPersonName("")
-        setPersonNumber("")
+    const findPerson = persons.find(person => person.name === personName)
+    if (findPerson) {
+      if (window.confirm(`${personName} is already added to phonebook, replace the old number with a new one?`)){
+        axios.put(`http://localhost:3001/persons/${findPerson.id}`, newPerson).then(
+          response => {
+            setPersons(persons.map(person => person.id !== findPerson.id ? person : response.data))
+            setPersonName("")
+            setPersonNumber("")
+          }
+        )
       }
-    )
+    } else {
+      axios.post('http://localhost:3001/persons', newPerson).then(
+        response => {
+          setPersons(persons.concat(response.data))
+          setPersonName("")
+          setPersonNumber("")
+        }
+      ) 
+    }
   }
 
   const handleChange = (setValue) => (event) => setValue(event.target.value)
