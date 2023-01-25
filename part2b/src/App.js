@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Person from "./components/Person";
-import PersonForm from "./components/personForm";
+import PersonForm from "./components/PersonForm";
+import PersonFilter from "./components/PersonFilter";
 
 const App = () => {
 
   const [ persons, setPersons ] = useState([])
   const [ personName, setPersonName ] = useState("")
   const [ personNumber, setPersonNumber ] = useState("")
+  const [ filterPerson, setFilterPerson ] = useState("")
 
   const hook = () => {
     axios.get('http://localhost:3001/persons').then(
@@ -38,6 +40,7 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
+      <PersonFilter filterName={filterPerson} changeFilterName={handleChange(setFilterPerson)} />
       <h2>add a new</h2>
       <PersonForm
         name={personName}
@@ -55,7 +58,8 @@ const App = () => {
         <Person key={person.id} phoneBookPerson={person} />
       ))}
       Debug name: {personName}<br />
-      Debug number: {personNumber}
+      Debug number: {personNumber}<br />
+      Debug filter: {filterPerson}
     </div>
   )
 }
