@@ -1,12 +1,13 @@
 
-const Person = ({ phoneBookPerson }) => {
+const Person = ({ persons, filterPerson }) => {
     return (
         <div>
-            <ul>
-                <li>
-                    {phoneBookPerson.name}: {phoneBookPerson.number}
-                </li>
-            </ul>
+            {persons
+                .filter(person => person.name.toLowerCase().includes(filterPerson))
+                .map(person => (
+                    <p key={person.id}>{person.name}: {person.number}</p>
+                ))
+            }
         </div>
     )
 }

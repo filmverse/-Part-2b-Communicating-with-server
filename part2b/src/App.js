@@ -54,9 +54,13 @@ const App = () => {
         number: <input value={personNumber} onChange={handleChange(setPersonNumber)} /><br />
         <button type="submit">add</button>
       </form> */}
-      {persons.map(person => (
+      <Person
+        persons={persons}
+        filterPerson={filterPerson}
+      />
+      {/* {persons.map(person => (
         <Person key={person.id} phoneBookPerson={person} />
-      ))}
+      ))} */}
       Debug name: {personName}<br />
       Debug number: {personNumber}<br />
       Debug filter: {filterPerson}
