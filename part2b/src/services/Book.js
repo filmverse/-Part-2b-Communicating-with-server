@@ -5,7 +5,9 @@ const getAll = () => {
     return axios.get(baseURL)
 }
 
-const create = () => {}
+const create = (personObject) => {
+    return axios.post(baseURL, personObject)
+}
 
 const update = () => {}
 

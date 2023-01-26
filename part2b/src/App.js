@@ -3,7 +3,7 @@ import axios from "axios";
 import Person from "./components/Person";
 import PersonForm from "./components/PersonForm";
 import PersonFilter from "./components/PersonFilter";
-import Book from "./services/Book";
+// import Book from "./services/Book";
 
 const App = () => {
 
@@ -13,7 +13,7 @@ const App = () => {
   const [ filterPerson, setFilterPerson ] = useState("")
 
   const hook = () => {
-    Book.getAll().then(
+    axios.get('http://localhost:3001/persons').then(
       response => {
         setPersons(response.data)
       }
