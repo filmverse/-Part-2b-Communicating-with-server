@@ -3,7 +3,7 @@ import axios from "axios";
 import Person from "./components/Person";
 import PersonForm from "./components/PersonForm";
 import PersonFilter from "./components/PersonFilter";
-// import Book from "./services/Book";
+import Book from "./services/Book";
 
 const App = () => {
 
@@ -13,7 +13,7 @@ const App = () => {
   const [ filterPerson, setFilterPerson ] = useState("")
 
   const hook = () => {
-    axios.get('http://localhost:3001/persons').then(
+    Book.getAll().then(
       response => {
         setPersons(response.data)
       }
@@ -30,7 +30,7 @@ const App = () => {
     const findPerson = persons.find(person => person.name === personName)
     if (findPerson) {
       if (window.confirm(`${personName} is already added to phonebook, replace the old number with a new one?`)){
-        axios.put(`http://localhost:3001/persons/${findPerson.id}`, newPerson).then(
+        Book.update(findPerson.id, newPerson).then(
           response => {
             setPersons(persons.map(person => person.id !== findPerson.id ? person : response.data))
             setPersonName("")
@@ -39,7 +39,7 @@ const App = () => {
         )
       }
     } else {
-      axios.post('http://localhost:3001/persons', newPerson).then(
+      Book.create(newPerson).then(
         response => {
           setPersons(persons.concat(response.data))
           setPersonName("")
@@ -51,7 +51,7 @@ const App = () => {
 
   const removePerson = (id, name) => () => {
     if (window.confirm(`Delete ${name}?`)) {
-      axios.delete(`http://localhost:3001/persons/${id}`).then(() => {
+      Book.remove(id).then(() => {
         setPersons(persons.filter(person => person.name !== name))
       })
     }
