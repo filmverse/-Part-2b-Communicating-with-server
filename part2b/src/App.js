@@ -11,6 +11,7 @@ const App = () => {
   const [ personNumber, setPersonNumber ] = useState("")
   const [ filterPerson, setFilterPerson ] = useState("")
   const [ successMessage, setSuccessMessage ] = useState(null)
+  const [ errorMessage, setErrorMessage ] = useState(null)
 
   const hook = () => {
     Book.getAll().then(
@@ -59,9 +60,19 @@ const App = () => {
 
   const removePerson = (id, name) => () => {
     if (window.confirm(`Delete ${name}?`)) {
-      Book.remove(id).then(() => {
-        setPersons(persons.filter(person => person.name !== name))
-      })
+      Book
+        .remove(id).then(() => {
+          setPersons(persons.filter(person => person.name !== name))
+        })
+        .catch(error => {
+          setErrorMessage(
+            `"${name}" was already removed from the server`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+          setPersons(persons.filter(person => person.name !== name))
+        })
     }
   }
 
@@ -77,6 +88,18 @@ const App = () => {
     )
   }
 
+  const FailNotification = ({ message }) => {
+    if (message === null) {
+      return null
+    }
+
+    return (
+      <div className="error">
+        {message}
+      </div>
+    )
+  }
+
   const handleChange = (setValue) => (event) => setValue(event.target.value)
 
   return (
@@ -84,6 +107,7 @@ const App = () => {
       <h1>Phonebook</h1>
 
       <SuccessNotification message={successMessage} />
+      <FailNotification message={errorMessage} />
 
       <PersonFilter filterName={filterPerson} changeFilterName={handleChange(setFilterPerson)} />
 
