@@ -65,7 +65,7 @@ const App = () => {
     }
   }
 
-  const Notofication = ({ message }) => {
+  const SuccessNotification = ({ message }) => {
     if (message === null) {
       return null
     }
@@ -83,7 +83,7 @@ const App = () => {
     <div>
       <h1>Phonebook</h1>
 
-      <Notofication message={successMessage} />
+      <SuccessNotification message={successMessage} />
 
       <PersonFilter filterName={filterPerson} changeFilterName={handleChange(setFilterPerson)} />
 
