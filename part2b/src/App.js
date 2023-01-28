@@ -10,7 +10,7 @@ const App = () => {
   const [ personName, setPersonName ] = useState("")
   const [ personNumber, setPersonNumber ] = useState("")
   const [ filterPerson, setFilterPerson ] = useState("")
-  const [ errorMessage, setErrorMessage ] = useState("some error happened...")
+  const [ successMessage, setSuccessMessage ] = useState(null)
 
   const hook = () => {
     Book.getAll().then(
@@ -35,6 +35,10 @@ const App = () => {
             setPersons(persons.map(person => person.id !== findPerson.id ? person : response.data))
             setPersonName("")
             setPersonNumber("")
+            setSuccessMessage(`${newPerson.name} is updated successfully`)
+            setTimeout(() => {
+              setSuccessMessage(null)
+            }, 5000)
           }
         )
       }
@@ -44,6 +48,10 @@ const App = () => {
           setPersons(persons.concat(response.data))
           setPersonName("")
           setPersonNumber("")
+          setSuccessMessage(`${newPerson.name} is added successfully`)
+          setTimeout(() => {
+            setSuccessMessage(null)
+          }, 5000)
         }
       ) 
     }
@@ -57,11 +65,25 @@ const App = () => {
     }
   }
 
+  const Notofication = ({ message }) => {
+    if (message === null) {
+      return null
+    }
+
+    return (
+      <div className="success">
+        {message}
+      </div>
+    )
+  }
+
   const handleChange = (setValue) => (event) => setValue(event.target.value)
 
   return (
     <div>
       <h1>Phonebook</h1>
+
+      <Notofication message={successMessage} />
 
       <PersonFilter filterName={filterPerson} changeFilterName={handleChange(setFilterPerson)} />
 
