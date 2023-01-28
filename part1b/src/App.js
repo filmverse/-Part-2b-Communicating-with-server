@@ -6,8 +6,8 @@ const App = () => {
 
   const [ notes, setNotes ] = useState([])
   const [ newNote, setNewNote ] = useState('')
-  const [showAll, setShowAll] = useState(true)
-  const [errorMessage, setErrorMessage] = useState('some error happened...')
+  const [ showAll, setShowAll ] = useState(true)
+  const [ errorMessage, setErrorMessage ] = useState(null)
 
   const hook = () => {
     noteService.getAll().then(iNotes => {
@@ -39,25 +39,23 @@ const App = () => {
     ? notes
     : notes.filter(note => note.important === true)
 
-  console.log(showAll)
-
   const toggleImportanceOf = (id) => {
-    // console.log(`importance of ${id} needs to be toggled`)
-    // const url = `http://localhost:3001/notes/${id}`
     const note = notes.find(n => n.id === id)
     const changedNote = {...note, important: !note.important}
-    noteService.update(id, changedNote).then(iNotes => {
-      setNotes(notes.map(note => note.id !== id ? note : iNotes))
-    })
-    .catch(error => {
-      setErrorMessage(
-        `Note '${note.content}' was already removed from server`
-      )
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
-      setNotes(notes.filter(n => n.id !== id))
-    })
+
+    noteService
+      .update(id, changedNote).then(iNotes => {
+        setNotes(notes.map(note => note.id !== id ? note : iNotes))
+      })
+      .catch(error => {
+        setErrorMessage(
+          `Note '${note.content}' was already removed from server`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+        setNotes(notes.filter(n => n.id !== id))
+      })
   }
 
   const Notification = ({ message }) => {
