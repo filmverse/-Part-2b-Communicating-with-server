@@ -10,6 +10,7 @@ const App = () => {
   const [ personName, setPersonName ] = useState("")
   const [ personNumber, setPersonNumber ] = useState("")
   const [ filterPerson, setFilterPerson ] = useState("")
+  const [ errorMessage, setErrorMessage ] = useState("some error happened...")
 
   const hook = () => {
     Book.getAll().then(

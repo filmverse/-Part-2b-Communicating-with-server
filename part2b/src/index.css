@@ -1,0 +1,18 @@
+div {
+    color: green;
+    font-style: italic;
+}
+
+button {
+    color: rgb(111, 0, 255);
+}
+
+.error {
+    color: red;
+    background: lightgrey;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
