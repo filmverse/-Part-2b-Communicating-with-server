@@ -30,13 +30,13 @@ const App = () => {
     }
     const findPerson = persons.find(person => person.name === personName)
     if (findPerson) {
-      if (window.confirm(`${personName} is already added to phonebook, replace the old number with a new one?`)){
+      if (window.confirm(`"${personName}" is already added to phonebook, replace the old number with a new one?`)){
         Book.update(findPerson.id, newPerson).then(
           response => {
             setPersons(persons.map(person => person.id !== findPerson.id ? person : response.data))
             setPersonName("")
             setPersonNumber("")
-            setSuccessMessage(`${newPerson.name} is updated successfully`)
+            setSuccessMessage(`"${newPerson.name}" is updated successfully`)
             setTimeout(() => {
               setSuccessMessage(null)
             }, 5000)
@@ -49,7 +49,7 @@ const App = () => {
           setPersons(persons.concat(response.data))
           setPersonName("")
           setPersonNumber("")
-          setSuccessMessage(`${newPerson.name} is added successfully`)
+          setSuccessMessage(`"${newPerson.name}" is added successfully`)
           setTimeout(() => {
             setSuccessMessage(null)
           }, 5000)
@@ -59,7 +59,7 @@ const App = () => {
   }
 
   const removePerson = (id, name) => () => {
-    if (window.confirm(`Delete ${name}?`)) {
+    if (window.confirm(`Delete "${name}"?`)) {
       Book
         .remove(id).then(() => {
           setPersons(persons.filter(person => person.name !== name))
