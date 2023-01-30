@@ -1,10 +1,18 @@
-div {
+h1 {
     color: green;
     font-style: italic;
 }
 
 button {
     color: rgb(111, 0, 255);
+    border-radius: 10px;
+}
+
+.note {
+    color: rgb(71, 71, 71);
+    padding-top: 10px;
+    font-size: 25px;
+    font-style: italic;
 }
 
 .error {

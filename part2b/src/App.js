@@ -100,6 +100,20 @@ const App = () => {
     )
   }
 
+  const Footer = () => {
+    const footerStyle = {
+      color: 'green',
+      fontStyle: 'italic',
+      fontSize: 16
+    }
+    return (
+      <div style={footerStyle}>
+        <br />
+        <em>Note app, Department of Computer Science, University of Helsinki 2022</em>
+      </div>
+    )
+  }
+
   const handleChange = (setValue) => (event) => setValue(event.target.value)
 
   return (
@@ -130,6 +144,7 @@ const App = () => {
       Debug name: {personName}<br />
       Debug number: {personNumber}<br />
       Debug filter: {filterPerson}
+      <Footer />
     </div>
   )
 }

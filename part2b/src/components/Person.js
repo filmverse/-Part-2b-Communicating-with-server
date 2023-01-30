@@ -5,7 +5,7 @@ const Person = ({ persons, filterPerson, removePerson }) => {
             {persons
                 .filter(person => person.name.toLowerCase().includes(filterPerson))
                 .map(person => (
-                    <p key={person.id}>{person.name}: {person.number} <button onClick={removePerson(person.id, person.name)}>delete</button></p>
+                    <p key={person.id} className='note'>{person.name}: {person.number} <button onClick={removePerson(person.id, person.name)}>delete</button></p>
                 ))
             }
         </div>
