@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import CountryDetails from "./components/CountryDetails";
 
 const App = () => {
 
@@ -9,12 +10,11 @@ const App = () => {
   const hook = () => {
     axios.get('https://restcountries.com/v3.1/all').then(
       response => {
-        console.log(response.data)
         setCountries(response.data.map(
           country => ({
             name: country.name.common,
             capital: country.capital,
-            area: country.capital,
+            area: country.area,
             language: country.languages,
             flag: country.flag,
             flags: country.flags
@@ -25,12 +25,28 @@ const App = () => {
   }
   useEffect(hook, [])
 
-  const handleChange = (setValue) => (event) => setValue(event.target.value)
+  const filterCountries = countries.filter(
+    country => country.name.toLowerCase().includes(searchQuery)
+  )
+
+  const handleChange = (setValue) => (event) => setValue(event.target.value.toLowerCase())
 
   return (
     <div>
       <p>find countries <input value={searchQuery} onChange={handleChange(setSearchQuery)} /></p>
-      {countries.map(cname => <p key={cname.name}>{cname.name}</p>)}
+      {filterCountries.length > 10 && (
+        <p>Too many matches, specify another filter</p>
+      )}
+      {filterCountries.length <= 10 && filterCountries.length > 1 && filterCountries.map(
+        country => (
+          <ul key={country.name}>
+            <li>{country.name}</li>
+          </ul>
+        )
+      )}
+      {filterCountries.length === 1 && (
+        <CountryDetails country={filterCountries[0]} />
+      )}
     </div>
   )
 }
