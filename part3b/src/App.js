@@ -6,7 +6,7 @@ const App = () => {
 
   const [ countries, setCountries ] = useState([])
   const [ searchQuery, setSearchQuery ] = useState("")
-  const [ viewCountry, setViewCountry ] = useState()
+  const [ viewCountry, setViewCountry ] = useState({})
 
   const hook = () => {
     axios.get('https://restcountries.com/v3.1/all').then(
@@ -30,7 +30,14 @@ const App = () => {
     country => country.name.toLowerCase().includes(searchQuery)
   )
 
-  const handleChange = (setValue) => (event) => setValue(event.target.value.toLowerCase())
+  const handleChange = (setValue) => (event) => {
+    setValue(event.target.value.toLowerCase())
+    setViewCountry({})
+  }
+
+  const handleShow = (name) => () => {
+    setViewCountry(filterCountries.filter(country => country.name.includes(name))[0])
+  }
 
   return (
     <div>
@@ -41,12 +48,15 @@ const App = () => {
       {filterCountries.length <= 10 && filterCountries.length > 1 && filterCountries.map(
         country => (
           <ul key={country.name}>
-            <li>{country.name} <button>show</button></li>
+            <li>{country.name} <button onClick={handleShow(country.name)}>show</button></li>
           </ul>
         )
       )}
       {filterCountries.length === 1 && (
         <CountryDetails country={filterCountries[0]} />
+      )}
+      {viewCountry.name && (
+        <CountryDetails country={viewCountry} />
       )}
     </div>
   )
