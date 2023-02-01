@@ -1,4 +1,7 @@
+
 const CountryDetails = ({ country }) => {
+
+
     return (
         <div>
             <ul>
