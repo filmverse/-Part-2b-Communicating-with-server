@@ -6,6 +6,7 @@ const App = () => {
 
   const [ countries, setCountries ] = useState([])
   const [ searchQuery, setSearchQuery ] = useState("")
+  const [ viewCountry, setViewCountry ] = useState()
 
   const hook = () => {
     axios.get('https://restcountries.com/v3.1/all').then(
@@ -40,7 +41,7 @@ const App = () => {
       {filterCountries.length <= 10 && filterCountries.length > 1 && filterCountries.map(
         country => (
           <ul key={country.name}>
-            <li>{country.name}</li>
+            <li>{country.name} <button>show</button></li>
           </ul>
         )
       )}
